@@ -6,3 +6,42 @@ output: github_document
 ```{setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+```{r}
+library(tidyverse)
+library(tidymodels)
+library(GGally)
+hfi <- readr::read_csv("https://www.openintro.org/data/csv/hfi.csv")
+
+```
+
+Question 1:
+Is this an observational study or an experiment?
+
+Answer:
+This is an observational study as it summarizes the idea of freedom using multiple variables for different countries around the globe without trying to prove or justify an objective.
+
+```{r}
+ggplot(hfi, aes(x = pf_score)) +
+  geom_histogram() + 
+  labs(title = "Distribution of pf_score",
+       x = "pf_score")
+```
+
+Question 2:
+Describe the distribution of pf_score Is the distribution skewed? Are there any other interesting/odd features (outliers, multiple peaks, etc.)? What does that tell you about countries’ personal freedoms? Is this what you expected to see? Why, or why not?
+
+Answer:
+The distribution is skewed to the right making it the right skewed data. There are few outliers and multiple peaks present in the histogram generated. This is not what I expected to see. Since having an histogram 
+
+```{r, warning = FALSE}
+hfi %>% 
+  select(ends_with("_score")) %>% 
+  ggpairs()
+```
+```{r, warning= FALSE}
+m_hr_ef <- lm(pf_score ~ hf_score + ef_score, data = hfi)
+tidy(m_hr_ef)
+```
+
+
