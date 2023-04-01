@@ -32,7 +32,7 @@ library(tidymodels)
     ## ✖ dplyr::lag()      masks stats::lag()
     ## ✖ yardstick::spec() masks readr::spec()
     ## ✖ recipes::step()   masks stats::step()
-    ## • Use tidymodels_prefer() to resolve common conflicts.
+    ## • Learn how to get started at https://www.tidymodels.org/start/
 
 ``` r
 library(GGally)
