@@ -44,4 +44,14 @@ m_hr_ef <- lm(pf_score ~ hf_score + ef_score, data = hfi)
 tidy(m_hr_ef)
 ```
 
+```{r}
+hfi %>% 
+  select(ends_with("_score")) %>% 
+  ggpairs()
+```
+
+```{r}
+m_hr_ef <- lm(pf_score ~ hf_score + ef_score, data = hfi)
+tidy(m_hr_ef)
+```
 
