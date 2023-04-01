@@ -55,3 +55,59 @@ m_hr_ef <- lm(pf_score ~ hf_score + ef_score, data = hfi)
 tidy(m_hr_ef)
 ```
 
+```{r}
+
+# review any visual patterns
+hfi %>% 
+  select(pf_score, pf_expression_influence, pf_expression_control) %>% 
+  ggpairs()
+
+#fit the mlr model
+m_pf <- lm(pf_score ~ pf_expression_influence + pf_expression_control, data = hfi)
+tidy(m_pf)
+```
+
+```{r}
+
+summary(m_pf)
+```
+
+```{r}
+
+glance(m_pf)
+```
+
+```{r}
+
+# obtain fitted values and residuals
+m_pf_aug <- augment(m_pf)
+
+# plot fitted values and residuals
+ggplot(data = m_pf_aug, aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  xlab("Fitted values") +
+  ylab("Residuals")
+```
+
+```{r}
+
+ggplot(data = m_pf_aug, aes(x = .resid)) +
+  geom_histogram(binwidth = 0.25) +
+  xlab("Residuals")
+```
+
+```{r}
+
+hfi %>% 
+  filter(countries == "United States" & year == 2016) %>% 
+  select(pf_score, pf_expression_influence, pf_expression_control)
+```
+
+```{r}
+
+hfi %>% 
+  filter(countries == "United States" & year == 2016) %>% 
+  predict(m_pf, .)
+```
+
